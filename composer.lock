@@ -34,7 +34,7 @@
                     "Brick\\Math\\": "src/"
                 }
             },
-            "": "https://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
