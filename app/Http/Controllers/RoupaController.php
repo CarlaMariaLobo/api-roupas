@@ -27,6 +27,7 @@ class RoupaController extends Controller
             'descricao' => 'nullable|string',
             'tamanho' => 'required|string|max:10',
             'preco' => 'required|numeric|min:0',
+            'url' => 'nullable|string',
         ]);
 
         $roupa = Roupa::create($request->all());
