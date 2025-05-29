@@ -8,9 +8,10 @@ use Illuminate\Http\Response; // Importe a classe Response
 
 class RoupaController extends Controller
 {
-    /**
-     * Lista todas as roupas.
-     */
+    //
+      Lista todas as roupas.
+      
+     //
     public function index()
     {
         $roupas = Roupa::all();
