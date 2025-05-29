@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json.schemastore.org/package.json",
+    "$schema": "",
     "private": true,
     "type": "module",
     "scripts": {
