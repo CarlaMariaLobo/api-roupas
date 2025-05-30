@@ -17,20 +17,10 @@ use Override;
  */
 final class BigDecimal extends BigNumber
 {
-    /**
-     * The unscaled value of this decimal number.
-     *
-     * This is a string of digits with an optional leading minus sign.
-     * No leading zero must be present.
-     * No leading minus sign must be present if the value is 0.
-     */
+   
     private readonly string $value;
 
-    /**
-     * The scale (number of digits after the decimal point) of this decimal number.
-     *
-     * This must be zero or more.
-     */
+   hg
     private readonly int $scale;
 
     /**
