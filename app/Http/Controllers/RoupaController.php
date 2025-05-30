@@ -6,7 +6,7 @@ use App\Models\Roupa;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response; // Importe a classe Response
 
-
+class RoupaController extends Controller
 {
     /*
       Lista todas as roupas.
