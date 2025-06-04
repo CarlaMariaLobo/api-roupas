@@ -7,13 +7,7 @@ namespace Brick\Math\Internal\Calculator;
 use Brick\Math\Internal\Calculator;
 use Override;
 
-/**
- * Calculator implementation built around the bcmath library.
- *
- * @internal
- *
- * @psalm-immutable
- */
+
 class BcMathCalculator extends Calculator
 {
     #[Override]
