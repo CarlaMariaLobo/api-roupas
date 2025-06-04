@@ -7,13 +7,7 @@ namespace Brick\Math\Internal\Calculator;
 use Brick\Math\Internal\Calculator;
 use Override;
 
-/**
- * Calculator implementation built around the GMP library.
- *
- * @internal
- *
- * @psalm-immutable
- */
+
 class GmpCalculator extends Calculator
 {
     #[Override]
