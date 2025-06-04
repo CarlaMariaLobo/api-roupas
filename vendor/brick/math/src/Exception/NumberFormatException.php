@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Brick\Math\Exception;
 
-/**
- * Exception thrown when attempting to create a number from a string with an invalid format.
- */
+
 class NumberFormatException extends MathException
 {
     public static function invalidFormat(string $value) : self
@@ -17,11 +15,7 @@ class NumberFormatException extends MathException
         ));
     }
 
-    /**
-     * @param string $char The failing character.
-     *
-     * @psalm-pure
-     */
+  
     public static function charNotInAlphabet(string $char) : self
     {
         $ord = \ord($char);
