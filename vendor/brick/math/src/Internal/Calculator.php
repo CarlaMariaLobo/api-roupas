@@ -7,71 +7,36 @@ namespace Brick\Math\Internal;
 use Brick\Math\Exception\RoundingNecessaryException;
 use Brick\Math\RoundingMode;
 
-/**
- * Performs basic operations on arbitrary size integers.
- *
- * Unless otherwise specified, all parameters must be validated as non-empty strings of digits,
- * without leading zero, and with an optional leading minus sign if the number is not zero.
- *
- * Any other parameter format will lead to undefined behaviour.
- * All methods must return strings respecting this format, unless specified otherwise.
- *
- * @internal
- *
- * @psalm-immutable
- */
+
 abstract class Calculator
 {
-    /**
-     * The maximum exponent value allowed for the pow() method.
-     */
+    
     public const MAX_POWER = 1_000_000;
 
-    /**
-     * The alphabet for converting from and to base 2 to 36, lowercase.
-     */
+    
     public const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
 
-    /**
-     * The Calculator instance in use.
-     */
+    
     private static ?Calculator $instance = null;
 
-    /**
-     * Sets the Calculator instance to use.
-     *
-     * An instance is typically set only in unit tests: the autodetect is usually the best option.
-     *
-     * @param Calculator|null $calculator The calculator instance, or NULL to revert to autodetect.
-     */
+    @param Calculator|null $calculator The calculator instance, or NULL to revert to autodetect.
+     
     final public static function set(?Calculator $calculator) : void
     {
         self::$instance = $calculator;
     }
 
-    /**
-     * Returns the Calculator instance to use.
-     *
-     * If none has been explicitly set, the fastest available implementation will be returned.
-     *
-     * @psalm-pure
-     * @psalm-suppress ImpureStaticProperty
-     */
+    
     final public static function get() : Calculator
     {
         if (self::$instance === null) {
-            /** @psalm-suppress ImpureMethodCall */
+             @psalm-suppress 
             self::$instance = self::detect();
         }
 
         return self::$instance;
     }
 
-    /**
-     * Returns the fastest available Calculator implementation.
-     *
-     * @codeCoverageIgnore
-     */
     private static function detect() : Calculator
     {
         if (\extension_loaded('gmp')) {
@@ -85,11 +50,11 @@ abstract class Calculator
         return new Calculator\NativeCalculator();
     }
 
-    /**
-     * Extracts the sign & digits of the operands.
-     *
-     * @return array{bool, bool, string, string} Whether $a and $b are negative, followed by their digits.
-     */
+    
+      
+     
+      @return array{bool, bool, string, string} Whether $a and $b are negative, followed by their digits.
+     
     final protected function init(string $a, string $b) : array
     {
         return [
@@ -101,17 +66,13 @@ abstract class Calculator
         ];
     }
 
-    /**
-     * Returns the absolute value of a number.
-     */
+   
     final public function abs(string $n) : string
     {
         return ($n[0] === '-') ? \substr($n, 1) : $n;
     }
 
-    /**
-     * Negates a number.
-     */
+   
     final public function neg(string $n) : string
     {
         if ($n === '0') {
@@ -125,13 +86,6 @@ abstract class Calculator
         return '-' . $n;
     }
 
-    /**
-     * Compares two numbers.
-     *
-     * @psalm-return -1|0|1
-     *
-     * @return int -1 if the first number is less than, 0 if equal to, 1 if greater than the second number.
-     */
     final public function cmp(string $a, string $b) : int
     {
         [$aNeg, $bNeg, $aDig, $bDig] = $this->init($a, $b);
@@ -158,78 +112,31 @@ abstract class Calculator
         return $aNeg ? -$result : $result;
     }
 
-    /**
-     * Adds two numbers.
-     */
+   
     abstract public function add(string $a, string $b) : string;
 
-    /**
-     * Subtracts two numbers.
-     */
     abstract public function sub(string $a, string $b) : string;
 
-    /**
-     * Multiplies two numbers.
-     */
+    
     abstract public function mul(string $a, string $b) : string;
 
-    /**
-     * Returns the quotient of the division of two numbers.
-     *
-     * @param string $a The dividend.
-     * @param string $b The divisor, must not be zero.
-     *
-     * @return string The quotient.
-     */
     abstract public function divQ(string $a, string $b) : string;
 
-    /**
-     * Returns the remainder of the division of two numbers.
-     *
-     * @param string $a The dividend.
-     * @param string $b The divisor, must not be zero.
-     *
-     * @return string The remainder.
-     */
     abstract public function divR(string $a, string $b) : string;
 
-    /**
-     * Returns the quotient and remainder of the division of two numbers.
-     *
-     * @param string $a The dividend.
-     * @param string $b The divisor, must not be zero.
-     *
-     * @return array{string, string} An array containing the quotient and remainder.
-     */
+    
     abstract public function divQR(string $a, string $b) : array;
 
-    /**
-     * Exponentiates a number.
-     *
-     * @param string $a The base number.
-     * @param int    $e The exponent, validated as an integer between 0 and MAX_POWER.
-     *
-     * @return string The power.
-     */
+   
     abstract public function pow(string $a, int $e) : string;
 
-    /**
-     * @param string $b The modulus; must not be zero.
-     */
+  
     public function mod(string $a, string $b) : string
     {
         return $this->divR($this->add($this->divR($a, $b), $b), $b);
     }
 
-    /**
-     * Returns the modular multiplicative inverse of $x modulo $m.
-     *
-     * If $x has no multiplicative inverse mod m, this method must return null.
-     *
-     * This method can be overridden by the concrete implementation if the underlying library has built-in support.
-     *
-     * @param string $m The modulus; must not be negative or zero.
-     */
+   
     public function modInverse(string $x, string $m) : ?string
     {
         if ($m === '1') {
@@ -251,23 +158,14 @@ abstract class Calculator
         return $this->mod($this->add($this->mod($x, $m), $m), $m);
     }
 
-    /**
-     * Raises a number into power with modulo.
-     *
-     * @param string $base The base number; must be positive or zero.
-     * @param string $exp  The exponent; must be positive or zero.
-     * @param string $mod  The modulus; must be strictly positive.
-     */
+    
+      @param string $base T
+      @param string $exp  
+      @param string $mod  
+     
     abstract public function modPow(string $base, string $exp, string $mod) : string;
 
-    /**
-     * Returns the greatest common divisor of the two numbers.
-     *
-     * This method can be overridden by the concrete implementation if the underlying library
-     * has built-in support for GCD calculations.
-     *
-     * @return string The GCD, always positive, or zero if both arguments are zero.
-     */
+    
     public function gcd(string $a, string $b) : string
     {
         if ($a === '0') {
@@ -281,9 +179,9 @@ abstract class Calculator
         return $this->gcd($b, $this->divR($a, $b));
     }
 
-    /**
-     * @return array{string, string, string} GCD, X, Y
-     */
+    
+      @return array{string, string, string} GCD, X, Y
+     
     private function gcdExtended(string $a, string $b) : array
     {
         if ($a === '0') {
@@ -298,41 +196,31 @@ abstract class Calculator
         return [$gcd, $x, $y];
     }
 
-    /**
-     * Returns the square root of the given number, rounded down.
-     *
-     * The result is the largest x such that x² ≤ n.
-     * The input MUST NOT be negative.
-     */
+    
     abstract public function sqrt(string $n) : string;
 
-    /**
-     * Converts a number from an arbitrary base.
-     *
-     * This method can be overridden by the concrete implementation if the underlying library
-     * has built-in support for base conversion.
-     *
-     * @param string $number The number, positive or zero, non-empty, case-insensitively validated for the given base.
-     * @param int    $base   The base of the number, validated from 2 to 36.
-     *
-     * @return string The converted number, following the Calculator conventions.
-     */
+    
+      Converts a number from an arbitrary base.
+     
+      This method can be overridden by the concrete implementation if the underlying library
+      has built-in support for base conversion.
+     
+      @param string $number The number, positive or zero, non-empty, case-insensitively validated for the given base.
+      @param int    $base   The base of the number, validated from 2 to 36.
+     
+      @return string The converted number, following the Calculator conventions.
+     
     public function fromBase(string $number, int $base) : string
     {
         return $this->fromArbitraryBase(\strtolower($number), self::ALPHABET, $base);
     }
 
-    /**
-     * Converts a number to an arbitrary base.
-     *
-     * This method can be overridden by the concrete implementation if the underlying library
-     * has built-in support for base conversion.
-     *
-     * @param string $number The number to convert, following the Calculator conventions.
-     * @param int    $base   The base to convert to, validated from 2 to 36.
-     *
-     * @return string The converted number, lowercase.
-     */
+    
+      @param string $number The number to convert, following the Calculator conventions.
+      @param int    $base   The base to convert to, validated from 2 to 36.
+     
+      @return string The converted number, lowercase.
+     
     public function toBase(string $number, int $base) : string
     {
         $negative = ($number[0] === '-');
@@ -350,26 +238,26 @@ abstract class Calculator
         return $number;
     }
 
-    /**
-     * Converts a non-negative number in an arbitrary base using a custom alphabet, to base 10.
-     *
-     * @param string $number   The number to convert, validated as a non-empty string,
-     *                         containing only chars in the given alphabet/base.
-     * @param string $alphabet The alphabet that contains every digit, validated as 2 chars minimum.
-     * @param int    $base     The base of the number, validated from 2 to alphabet length.
-     *
-     * @return string The number in base 10, following the Calculator conventions.
-     */
+    
+      Converts a non-negative number in an arbitrary base using a custom alphabet, to base 10.
+     
+      @param string $number   The number to convert, validated as a non-empty string,
+                              containing only chars in the given alphabet/base.
+      @param string $alphabet The alphabet that contains every digit, validated as 2 chars minimum.
+      @param int    $base     The base of the number, validated from 2 to alphabet length.
+     
+      @return string The number in base 10, following the Calculator conventions.
+     
     final public function fromArbitraryBase(string $number, string $alphabet, int $base) : string
     {
-        // remove leading "zeros"
+        
         $number = \ltrim($number, $alphabet[0]);
 
         if ($number === '') {
             return '0';
         }
 
-        // optimize for "one"
+       
         if ($number === $alphabet[1]) {
             return '1';
         }
@@ -397,15 +285,13 @@ abstract class Calculator
         return $result;
     }
 
-    /**
-     * Converts a non-negative number to an arbitrary base using a custom alphabet.
-     *
-     * @param string $number   The number to convert, positive or zero, following the Calculator conventions.
-     * @param string $alphabet The alphabet that contains every digit, validated as 2 chars minimum.
-     * @param int    $base     The base to convert to, validated from 2 to alphabet length.
-     *
-     * @return string The converted number in the given alphabet.
-     */
+    
+      @param string $number   The number to convert, positive or zero, following the Calculator conventions.
+      @param string $alphabet The alphabet that contains every digit, validated as 2 chars minimum.
+      @param int    $base     The base to convert to, validated from 2 to alphabet length.
+     
+      @return string The converted number in the given alphabet.
+     
     final public function toArbitraryBase(string $number, string $alphabet, int $base) : string
     {
         if ($number === '0') {
