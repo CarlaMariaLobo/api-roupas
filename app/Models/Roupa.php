@@ -9,7 +9,7 @@ class Roupa extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+     $fillable = [
         'nome',
         'descricao',
         'tamanho',
