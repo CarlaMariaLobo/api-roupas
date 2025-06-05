@@ -2,15 +2,7 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application Name
-    |--------------------------------------------------------------------------
-    |
-    | Este valor é o nome do seu aplicativo, que será usado quando o
-    | framework precisar inserir o nome do aplicativo em uma notificação
-    |
-    */
+   
 
     'name' => env('APP_NAME', 'Laravel'),
 
