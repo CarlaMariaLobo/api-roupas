@@ -4,7 +4,7 @@
 use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 
-('LARAVEL_START', microtime(true));
+define('LARAVEL_START', microtime(true));
 
 
 require __DIR__.'/vendor/autoload.php';
