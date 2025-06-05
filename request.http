@@ -1,0 +1,22 @@
+
+
+### Teste rota GET (buscar uma roupa por ID)
+GET http://localhost:8000/api/roupas/1
+Accept: application/json
+
+
+### Teste rota POST (criar uma nova roupa)
+POST http://localhost:8000/api/roupas/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nome": "Camiseta",
+    "tamanho": "M",
+    "cor": "Azul",
+    "preco": 49.90
+}
+
+
+
+
