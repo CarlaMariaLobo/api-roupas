@@ -24,9 +24,10 @@ class RoupaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'tamanho' => 'required|string|max:10',
+             'cor' => 'nullable|string|max:50', // adicione esta linha
             'preco' => 'required|numeric|min:0',
         ]);
 
