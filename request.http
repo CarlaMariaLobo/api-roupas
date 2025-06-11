@@ -6,15 +6,15 @@ Accept: application/json
 
 
 ### Teste rota POST (criar uma nova roupa)
-POST http://localhost:8000/api/roupas/
+POST http://localhost:8000/api/roupas
 Content-Type: application/json
 Accept: application/json
 
 {
-    "nome": "Camiseta",
+    "nome": "Camiseta Rosa",
     "tamanho": "M",
-    "cor": "Azul",
-    "preco": 49.90
+    "cor": "Rosa",
+    "preco": 99.90
 }
 
 

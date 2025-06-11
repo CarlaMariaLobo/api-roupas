@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roupas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome');
-            $table->text('descricao')->nullable();
-            $table->string('tamanho');
-            $table->decimal('preco', 8, 2); 
-            $table->timestamps();
-        });
-    }
 
+Schema::create('roupas', function (Blueprint $table) {
+    $table->id();
+    $table->string('nome');
+    $table->text('descricao')->nullable();
+    $table->string('tamanho');
+    $table->string('cor')->nullable(); // <-- novo campo
+    $table->decimal('preco', 8, 2); 
+    $table->timestamps();
+});
+    }
     /**
      * Reverse the migrations.
      */
